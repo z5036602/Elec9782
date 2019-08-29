@@ -1,0 +1,32 @@
+
+
+
+function [rho1,rho2,rho3,output,var] = ar3_sim(varargin)
+    if (nargin ~= 2 || nargin ~= 3) error('Wrong number of inputs');end
+    if(nargin == 2 && isreal(varargin{1})){
+        rho1 = varargin{1};
+        rho2 = varargin{2}
+     
+        
+T     = 200;                         %Set how many observations you need
+y     = ones(T,1);                    %Create a vector of dim Tx1 to store the simulations in
+y(1)  = 1;                            %Set the first obs. to 1    
+y(2)  = 0.5;                          %Set the second obs. to 0.5
+y(3)  = 1.5;                          %Set the third obs. to 1.5
+rho1  = 0.2-0.1j;                          %Set the value of rho1 (coefficient on y(t-1))
+rho2  = 0.2+0.1j;                          %Set the value of rho2 (coefficient on y(t-2))
+rho3  = 0.1;                          %Set the value of rho3 (coefficient on y(t-3))
+sigma = 1;                            %Set the value of the s.d. of the error term
+mu_e  = 0;                            %Set the value of the mean of the error term
+eps   = normrnd(mu_e, sigma, T, 1);   %Creat a vector of normal random numbers with mean, mu_e and s.d. sigma. Dimension is Tx1 
+
+for t=4:T;                         %Start the loop running from obs. 4 to 1000 
+    y(t) = rho1*y(t-1) + rho2*y(t-2) + rho2*y(t-3) + eps(t);    %The AR(3) model
+end
+
+%Plot the series
+figure
+plot(abs(y));
+title('AR(3)');
+xlabel('t')
+ylabel('y(t)')

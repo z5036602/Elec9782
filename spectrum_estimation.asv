@@ -1,0 +1,129 @@
+%%% simulate the system to generate (y,x,s)
+T = 1000;
+a = 0.8;
+b = 1;
+sigma_eps =1;
+theta = 0.7;
+sigma_v = 1;
+[y,s,x,VSNR,empirical_VSNR] = system_simulation(T,a,b,sigma_eps,theta,sigma_v);
+%%
+frequency_range = (0:pi/1000:(pi-pi/1000))/(2*pi);
+figure;
+subplot 522
+t = 40;                     %% lag numebrs 
+acs = empirical_cross_autocorr(y,x,t);
+[spectrum] = spectrum_estimator(acs,t);
+plot (frequency_range,real(spectrum));
+title('F_{yx}(\omega) for increasing M')
+axis([0 3.3/(2*pi) -5 5]);
+subplot 521
+plot([-t:t],acs);
+title('Cross ACS');
+ylabel('M=40');
+axis([-85,85,-1,1])
+subplot 524
+t = 50;                     %% lag numebrs 
+acs = empirical_cross_autocorr(y,x,t);
+[spectrum] = spectrum_estimator(acs,t);
+plot (frequency_range,real(spectrum));
+axis([0 3.3/(2*pi) -5 5]);
+subplot 523
+plot([-t:t],acs);
+ylabel('M=50');
+axis([-85,85,-1,1])
+subplot 526
+t = 60;                     %% lag numebrs 
+acs = empirical_cross_autocorr(y,x,t);
+[spectrum] = spectrum_estimator(acs,t);
+plot (frequency_range,real(spectrum));
+axis([0 3.3/(2*pi) -5 5]);
+subplot 525
+plot([-t:t],acs);
+ylabel('M=60');
+axis([-85,85,-1,1])
+subplot 528
+t = 70;                     %% lag numebrs 
+acs = empirical_cross_autocorr(y,x,t);
+[spectrum] = spectrum_estimator(acs,t);
+plot (frequency_range,real(spectrum));
+axis([0 3.3/(2*pi) -5 5]);
+subplot 527
+plot([-t:t],acs);
+ylabel('M=70');
+axis([-85,85,-1,1])
+subplot (5,2,10)
+t = 80;                     %% lag numebrs 
+acs = empirical_cross_autocorr(y,x,t);
+[spectrum] = spectrum_estimator(acs,t);
+plot (frequency_range,real(spectrum));
+xlabel('frequency f')
+axis([0 3.3/(2*pi) -5 5]);
+subplot 529
+plot([-t:t],acs);
+ylabel('M=80');
+axis([-85,85,-1,1])
+xlabel('lag r')
+
+%%
+%%%trial and error to get the right number of lags
+%%%using the rule of thumb for trial and errors of ..
+frequency_range = (0:pi/1000:(pi-pi/1000))/(2*pi);
+figure;
+subplot 522
+t = 40;                     %% lag numebrs 
+acs = empirical_autocorr(x,t);
+[spectrum] = spectrum_estimator(acs,t);
+plot (frequency_range,real(spectrum));
+title('F_x(\omega) for increasing M')
+axis([0 3.3/(2*pi) -5 5]);
+subplot 521
+plot([-t:t],acs);
+title('ACS');
+ylabel('M=40');
+axis([-85,85,-1,1])
+subplot 524
+t = 50;                     %% lag numebrs 
+acs = empirical_autocorr(x,t);
+[spectrum] = spectrum_estimator(acs,t);
+plot (frequency_range,real(spectrum));
+axis([0 3.3/(2*pi) -5 5]);
+subplot 523
+plot([-t:t],acs);
+ylabel('M=50');
+axis([-85,85,-1,1])
+subplot 526
+t = 60;                     %% lag numebrs 
+acs = empirical_autocorr(x,t);
+[spectrum] = spectrum_estimator(acs,t);
+plot (frequency_range,real(spectrum));
+axis([0 3.3/(2*pi) -5 5]);
+subplot 525
+plot([-t:t],acs);
+ylabel('M=60');
+axis([-85,85,-1,1])
+subplot 528
+t = 70;                     %% lag numebrs 
+acs = empirical_autocorr(x,t);
+[spectrum] = spectrum_estimator(acs,t);
+plot (frequency_range,real(spectrum));
+axis([0 3.3/(2*pi) -5 5]);
+subplot 527
+plot([-t:t],acs);
+ylabel('M=70');
+axis([-85,85,-1,1])
+subplot (5,2,10)
+t = 80;                     %% lag numebrs 
+acs = empirical_autocorr(x,t);
+[spectrum] = spectrum_estimator(acs,t);
+plot (frequency_range,real(spectrum));
+xlabel('frequency f')
+axis([0 3.3/(2*pi) -5 5]);
+subplot 529
+plot([-t:t],acs);
+ylabel('M=80');
+axis([-85,85,-1,1])
+xlabel('lag r')
+
+
+%%
+for 

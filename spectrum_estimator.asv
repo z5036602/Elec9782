@@ -1,0 +1,10 @@
+function [total_acs] = spectrum_estimator(data,lag)
+    f_res = 1000;
+    total_acs = 0;
+    for f_c = 1:f_res;
+        
+        for i = -lag:lag
+        
+        end
+    end 
+end 
